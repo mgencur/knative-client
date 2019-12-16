@@ -16,7 +16,6 @@ kind: PipelineRun
 metadata:
   generateName: buildah-build-kn-create-
 spec:
-  serviceAccount: kn-deployer-account
   pipelineRef:
     name: buildah-build-kn-create
   resources:

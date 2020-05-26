@@ -17,5 +17,3 @@ spec:
       image: "$(params.kn-image)"
       command: ["/ko-app/kn"]
       args: ["$(params.ARGS)"]
-      # reference the container image resource in your taskrun/pipelinerun
-      # parameters array as "--image=$(resources.inputs.image.url)"

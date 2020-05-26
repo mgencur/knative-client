@@ -40,7 +40,7 @@ spec:
     params:
     - name: url
       value: "https://github.com/knative/client"
-  - name: buildah-build
+  - name: build-helloworld
     taskRef:
       name: buildah
     runAfter:
@@ -61,10 +61,16 @@ spec:
     taskRef:
       name: kn
     runAfter:
-    - buildah-build
+    - build-helloworld
     params:
     - name: kn-image
       value: "registry-mirror.apps.ocf-tekton-38-openshift-pipelines.openshift-aws.rhocf-dev.net/tkn-kn/kn:latest"
     - name: ARGS
       value:
-        - "$(params.ARGS)"
+      - "service"
+      - "create"
+      - "hello"
+      - "--force"
+      - "--service-account=kn-deployer-account"
+      - "--image=$(params.IMAGE)"
+      - "--env=TARGET=Tekton"

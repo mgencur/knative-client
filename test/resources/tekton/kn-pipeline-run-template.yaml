@@ -28,12 +28,3 @@ spec:
       value: "docker"
     - name: IMAGE
       value: "${CONTAINER_REGISTRY}/helloworld:tkn"
-    - name: ARGS
-      value:
-        - "service"
-        - "create"
-        - "hello"
-        - "--force"
-        - "--service-account=kn-deployer-account"
-        - "--image=$(tasks.buildah-build.results.IMAGE_DIGEST)"
-        - "--env=TARGET=Tekton"

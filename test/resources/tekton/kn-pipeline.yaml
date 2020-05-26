@@ -34,17 +34,20 @@ spec:
   - name: fetch-kn-from-git
     taskRef:
       name: git-clone
-    params:
-    - name: url
-      value: "https://github.com/knative/client"
     workspaces:
     - name: output
       workspace: shared-workspace
+    params:
+    - name: url
+      value: "https://github.com/knative/client"
   - name: buildah-build
     taskRef:
       name: buildah
     runAfter:
     - fetch-kn-from-git
+    workspaces:
+    - name: source
+      workspace: shared-workspace
     params:
     - name: IMAGE
       value: "$(params.IMAGE)"
@@ -54,9 +57,6 @@ spec:
       value: "quay.io/buildah/stable:latest"
     - name: FORMAT
       value: "$(params.IMAGE_FORMAT)"
-    workspaces:
-    - name: source
-      workspace: shared-workspace
   - name: kn-service-create
     taskRef:
       name: kn
@@ -64,7 +64,7 @@ spec:
     - buildah-build
     params:
     - name: kn-image
-      value: "gcr.io/knative-nightly/knative.dev/client/cmd/kn"
+      value: "registry-mirror.apps.ocf-tekton-38-openshift-pipelines.openshift-aws.rhocf-dev.net/tkn-kn/kn:latest"
     - name: ARGS
       value:
         - "$(params.ARGS)"

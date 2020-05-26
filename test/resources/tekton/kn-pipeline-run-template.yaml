@@ -19,6 +19,10 @@ spec:
   serviceAccountName: kn-deployer-account
   pipelineRef:
     name: buildah-build-kn-create
+  workspaces:
+  - name: shared-workspace
+    persistentvolumeclaim:
+      claimName: buildah-source-pvc
   params:
     - name: IMAGE_FORMAT
       value: "docker"
@@ -31,5 +35,5 @@ spec:
         - "hello"
         - "--force"
         - "--service-account=kn-deployer-account"
-        - "--image=$(params.IMAGE)"  # use tasks.buildah-build.results.IMAGE-DIGEST ?
+        - "--image=$(params.IMAGE)"  # use tasks.buildah-build.results.IMAGE_DIGEST ?
         - "--env=TARGET=Tekton"

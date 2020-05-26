@@ -64,9 +64,6 @@ func TestTektonPipeline(t *testing.T) {
 	_, err = kubectl.Run("apply", "-f", basedir+"/kn-pipeline.yaml")
 	assert.NilError(t, err)
 
-	_, err = kubectl.Run("apply", "-f", basedir+"/kn-pipeline-resource.yaml")
-	assert.NilError(t, err)
-
 	_, err = kubectl.Run("create", "-f", basedir+"/kn-pipeline-run.yaml")
 	assert.NilError(t, err)
 
